@@ -1,11 +1,11 @@
 // import area
+import LoginPage from "./LoginPage"
 
 export default function page(){
 // typescript area
 
 //html area
     return(
-
-        <div>whatever i want</div>
+        <div><LoginPage></LoginPage></div>
     )
 } 
