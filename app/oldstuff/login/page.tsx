@@ -1,5 +1,5 @@
 // import area
-import LoginPage from "./LoginPage"
+import {LoginPage} from "./LoginPage"
 
 export default function page(){
 // typescript area

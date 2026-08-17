@@ -5,7 +5,7 @@ import {Card} from "@/components/ui/card"
 import {Label} from "@/components/ui/label"
 import {Input} from "@/components/ui/input"
 
-export default function LoginPage() {
+export function LoginPage() {
     return(
         <div className="flex min-h-screen items-center justify-center">
             <Card className="bg-white p-6 rounded-xl shadow-md w-full max-w-sm"> 

@@ -1,5 +1,5 @@
 "use client"
-import Button from "../Button"
+import Button from "../../Button"
 import { useState } from "react";
 
 export default function page() {

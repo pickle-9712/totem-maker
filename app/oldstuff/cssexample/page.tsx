@@ -1,4 +1,4 @@
-import Button from "@/app/cssexample/Button"
+import Button from "@/app/oldstuff/cssexample/Button"
 
 export default function Page() {
     return (
