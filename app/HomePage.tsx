@@ -6,12 +6,38 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useState, useRef } from "react"
 import JSZip from "jszip"
+import { Select,SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 
 export default function HomePage() {
     const[preview, setPreview] = useState<string | null>(null)
     const[imageFile, setImageFile] = useState<File | null>(null)
     const inputRef = useRef<HTMLInputElement>(null)
+    const [packFormat, setPackFormat] = useState<string | null>(null)
+    const packVersions = [
+        {label:"1.11-1.12.2",value:"3"},
+        {label:"1.13-1.14.4",value:"4"},
+        {label:"1.15-1.16.1",value:"5"},
+        {label:"1.16.2-1.16.5",value:"6"},
+        {label:"1.17-1.17.1",value:"7"},
+        {label:"1.18-1.18.2",value:"8"},
+        {label:"1.19-1.19.2",value:"9"},
+        {label:"1.19.3",value:"12"},
+        { label: "1.20-1.20.1", value: "15"},
+        { label: "1.20.2", value: "18"},
+        { label: "1.20.3-1.20.4", value: "22"},
+        { label: "1.20.5-1.20.6", value: "32"},
+        { label: "1.21-1.21.1", value: "34"},
+        { label: "1.21.2-1.21.3", value: "42"},
+        { label: "1.21.4", value: "46"},
+        { label: "1.21.5", value: "55"},
+        { label: "1.21.6", value: "63"},
+        { label: "1.21.7-1.21.8", value: "64"},
+        { label: "1.21.9-1.21.10", value: "69.0"},
+        { label: "1.21.11", value: "75.0"},
+        { label: "26.1-26.1.2", value: "84.0"},
+        { label: "26.2", value: "88.0"},
+    ]
     let packName = "minecraft-totem-pack"
 
     function imageChanged(event: React.ChangeEvent<HTMLInputElement>) {
@@ -31,7 +57,7 @@ export default function HomePage() {
         const zip = new JSZip()
         const packMcMeta = {
             "pack": {
-                "pack_format": 3,
+                "pack_format": Number(packFormat),
                 "min_format": 3,
                 "max_format": 999,
                 "description": ""
@@ -83,6 +109,26 @@ export default function HomePage() {
                                 </Button>
                             </CardContent>
                         </Card>
+                        <div className="mt-5 w-48">
+                            <Select 
+                                items={packVersions}
+                                value={packFormat}
+                                onValueChange={(value) => setPackFormat(value)}
+                                >
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select the version for your resource pack"></SelectValue>
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        {packVersions.map((version) => (
+                                            <SelectItem key={version.value} value={version.value}>
+                                                {version.label}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </div>
                         <Button onClick={generateClicked} className="w-48 mt-2">Generate Pack</Button>
                     </div>
                 </CardContent>
