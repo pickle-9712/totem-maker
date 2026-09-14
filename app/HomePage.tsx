@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Switch } from "@/components/ui/switch"
 import { useState, useRef } from "react"
 import JSZip from "jszip"
 import { Select,SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -14,6 +15,8 @@ export default function HomePage() {
     const[imageFile, setImageFile] = useState<File | null>(null)
     const inputRef = useRef<HTMLInputElement>(null)
     const [packFormat, setPackFormat] = useState<string | null>(null)
+    const [packDescription, setPackDescription] = useState<string | null>(null)
+    const [useTotemIcon, setUseTotemIcon] = useState(false)
     const packVersions = [
         {label:"1.11-1.12.2",value:"3"},
         {label:"1.13-1.14.4",value:"4"},
@@ -60,11 +63,14 @@ export default function HomePage() {
                 "pack_format": Number(packFormat),
                 "min_format": 3,
                 "max_format": 999,
-                "description": ""
+                "description": packDescription
             }
         }
         zip.file("pack.mcmeta", JSON.stringify(packMcMeta, null, 2))
         zip.file("assets/minecraft/textures/item/totem_of_undying.png", imageFile)
+        if(useTotemIcon) {
+            zip.file("pack.png", imageFile)
+        }
         const blob = await zip.generateAsync({ type: "blob" })
         const url = URL.createObjectURL(blob)
         const link = document.createElement("a")
@@ -109,7 +115,7 @@ export default function HomePage() {
                                 </Button>
                             </CardContent>
                         </Card>
-                        <div className="mt-5 w-48">
+                        <div className="mt-5 w-48 flex justify-center">
                             <Select 
                                 items={packVersions}
                                 value={packFormat}
@@ -128,6 +134,19 @@ export default function HomePage() {
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
+                        </div>
+                        <div className="mt-2 mb-2 w-48 flex justify-center">
+                            <Input
+                                placeholder="Description"
+                                onChange={(event) => setPackDescription(event.target.value)}
+                            />
+                        </div>
+                        <div className="mt-2 mb-2 w-48 flex items-center justify-between">
+                                <Label>Use Totem As Pack Icon</Label>
+                                <Switch
+                                    checked={useTotemIcon}
+                                    onCheckedChange={setUseTotemIcon }
+                                />
                         </div>
                         <Button onClick={generateClicked} className="w-48 mt-2">Generate Pack</Button>
                     </div>
