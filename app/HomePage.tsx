@@ -115,7 +115,8 @@ export default function HomePage() {
                                 </Button>
                             </CardContent>
                         </Card>
-                        <div className="mt-5 w-48 flex justify-center">
+                        <div className="mt-5 w-48 flex items-center flex-col">
+                            <Label className="mb-1">Pack Version</Label>
                             <Select 
                                 items={packVersions}
                                 value={packFormat}
@@ -135,9 +136,10 @@ export default function HomePage() {
                                 </SelectContent>
                             </Select>
                         </div>
-                        <div className="mt-2 mb-2 w-48 flex justify-center">
+                        <div className="mt-2 mb-2 w-48 flex items-center flex-col">
+                            <Label className="mb-1">Pack Description</Label>
                             <Input
-                                placeholder="Description"
+                                placeholder=""
                                 onChange={(event) => setPackDescription(event.target.value)}
                             />
                         </div>
