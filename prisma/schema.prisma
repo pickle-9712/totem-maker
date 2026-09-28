@@ -6,3 +6,14 @@ generator client {
 datasource db {
   provider = "mongodb"
 }
+
+model Totem {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+
+    name String
+    description String?
+    packFormat String
+    imageURL String
+    createdAt DateTime @default(now())
+
+}
